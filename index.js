@@ -66,8 +66,8 @@ app.post('/products', (req, res) => {
 app.put('/products/:id', (req, res) => {
     const { name, description, price, category, image_url} = req.body;
     db.query(
-        'UPDATE products SET name = ?, description = ?, price = ? category = ?, image_url = ? WHEERE id = ?',
-        [name, description, price, category, image_url],
+        'UPDATE products SET name = ?, description = ?, price = ?, category = ?, image_url = ? WHERE id = ?',
+        [name, description, price, category, image_url, req.params.id],
         (err, results) => {
             if (err) return res.status(500).json({error: err.message});
             res.json({message: 'Product updated'});
