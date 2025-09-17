@@ -3,8 +3,8 @@ services:
     image: mysql:latest
     container_name: mysql_ecommerce
     environment:
-      MYSQL_ROOT_PASSWORD: password4demo
-      MYSQL_DATABASE: test_ecommercedb
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ecommercedb
     ports:
       - "3306:3306"
     volumes:
