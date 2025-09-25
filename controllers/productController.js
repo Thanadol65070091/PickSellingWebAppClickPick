@@ -1,36 +1,46 @@
 const Product = require('../models/productModel');
 
-module.exports.getAllProducts = (req, res) => {
-    Product.getAll((err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
+exports.getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.getAll(); 
+        res.json(products);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.getProductById = (req, res) => {
-    Product.getById(req.params.id, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results[0] || {});
-    });
+exports.getProductById = async (req, res) => {
+    try {
+        const results = await Product.getById(req.params.id);
+        res.json(results || {});
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.createProduct = (req, res) => {
-    Product.create(req.body, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.createProduct = async (req, res) => {
+    try {
+        const results = await Product.create(req.body);
         res.status(201).json({ id: results.insertId, message: 'Product created' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.updateProduct = (req, res) => {
-    Product.update(req.params.id, req.body, (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.updateProduct = async (req, res) => {
+    try {
+        await Product.update(req.params.id, req.body);
         res.json({ message: 'Product updated' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.deleteProduct = (req, res) => {
-    Product.delete(req.params.id, (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.deleteProduct = async (req, res) => {
+    try {
+        await Product.delete(req.params.id);
         res.json({ message: 'Product deleted' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };

@@ -1,36 +1,46 @@
 const User = require('../models/userModel.js');
 
-module.exports.getAllUsers = (req, res) => {
-    User.getAll((err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
+exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await User.getAll(); 
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.getUserById = (req, res) => {
-    User.getById(req.params.id, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results[0] || {});
-    });
+exports.getUserById = async (req, res) => {
+    try {
+        const results = await User.getById(req.params.id);
+        res.json(results || {});
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.createUser = (req, res) => {
-    User.create(req.body, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.createUser = async (req, res) => {
+    try {
+        const results = await User.create(req.body);
         res.status(201).json({ id: results.insertId, message: 'User created' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.updateUser = (req, res) => {
-    User.update(req.params.id, req.body, (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.updateUser = async (req, res) => {
+    try {
+        await User.update(req.params.id, req.body);
         res.json({ message: 'User updated' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
-module.exports.deleteUser = (req, res) => {
-    User.delete(req.params.id, (err) => {
-        if (err) return res.status(500).json({ error: err.message });
+exports.deleteUser = async (req, res) => {
+    try {
+        await User.delete(req.params.id);
         res.json({ message: 'User deleted' });
-    });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };

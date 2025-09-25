@@ -1,32 +1,37 @@
 const db = require('../config/db.js');
 
 const orderItem = {
-    getAll: (callback) => {
-        db.query('SELECT * FROM order_items', callback);
+    getAll: async() => {
+         const [rows] = await db.query('SELECT * FROM order_items');
+         return rows;
     },
 
-    getById: (id, callback) => {
-        db.query('SELECT * FROM order_items WHERE id = ?', [id], callback);
+    getById: async (id) => {
+         const [rows] = await db.query('SELECT * FROM order_items WHERE id = ?', [id]);
+         return rows[0];
     },
 
-    create: (data, callback) => {
-        db.query(
+    create: async(data) => {
+         const [result] = await db.query(
             'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
             [data.order_id, data.product_id, data.quantity, data.price],
-            callback
+            
         );
+        return result.insertId; 
     },
 
-    update: (id, data, callback) => {
-        db.query(
+    update: async(id, data) => {
+         const [rows] = await db.query(
             'UPDATE order_items SET order_id=?, product_id=?, quantity=?, price=? WHERE id=?',
             [data.order_id, data.product_id, data.quantity, data.price, id],
-            callback
+            
         );
+        return true;
     },
 
-    delete: (id, callback) => {
-        db.query('DELETE FROM order_items WHERE id=?', [id], callback);
+    delete: async(id) => {
+        await db.query('DELETE FROM order_items WHERE id=?', [id]);
+        return true;
     }
 };
 
