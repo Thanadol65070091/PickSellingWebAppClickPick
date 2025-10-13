@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickPick</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!--Navigation Bar-->
+    <nav id="navbar">
+        <label class="logo">ClickPick</label>
+        <div style="display: flex; align-items: center; height: 80px; float: right;">
+            <a class="topbarlink" href="#CustomsPicks">Custom picks</a>
+            <a class="topbarlink" href="#Gadgets">Gadgets</a>
+            <a class="topbarlink" href="#Search">Search</a>
+            <a class="topbarlink" href="#Contact">Contact</a>
+            <button type="button" class="signinbtn">Sign In</button>
+            <img class="cart" src="images/Cart.svg" alt="cart">
+        </div>
+    </nav>
+    <!--Navigation Bar-->
+
+    <!--Content Here-->
+    <div>
+        <div>
+            <button type="button" class="btn" style="margin-left: 160px; margin-top: 30px;">Back</button>
+            <hr style="border: 1px solid #D4D4D8; margin-top: 30px;">
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 20px;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin-left: 160px; margin-top: 40px; width: 50%;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 50%;">
+                    <img class="productsimg" src="images/gadgets.jpg" alt="gadget1">
+                    <img class="productsimg" src="images/gadgets.jpg" alt="gadget1">
+                </div>
+                <div>
+                    <img class="productsimg" style="width: 400px; height: 420px;"src="images/gadgets.jpg" alt="gadget1">
+                </div>
+            </div>
+            <div style="margin-top: 40px; width: 50%; margin-right: 150px;">
+                <h1 style="text-align: left; margin-top: 20px; font-weight: bold; padding-left: 160px;">Product Name</h1>
+                <h2 style="text-align: left; margin-top: 20px; font-weight: bold; padding-left: 160px;">$123</h2>
+                <h3 class="instock">In-stock</h3>
+                <hr style="border: 1px solid #D4D4D8; margin-top: 10px;">
+                <p style="text-align: left; margin-top: 20px; padding-left: 160px; padding-right: 150px;">
+                    This is a product description. It gives details about the product, its features, and any other relevant information that might help the customer make a purchasing decision.
+                </p>
+                <div style="display: flex; flex-direction: row; align-items: center; margin-top: 20px; padding-left: 160px;">
+                    <label for="quantity" style="font-weight: bold; margin-right: 10px;">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" style="width: 60px; margin-right: 20px;">
+                    <button type="button" class="btn" style="margin-top: 0px;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <hr style="border: 1px solid #D4D4D8; margin-top: 10px;">
+        </div>
+    </div>
+    <div class="products">
+        <h1>Related Products</h1>
+        <div class="productslist">
+            <div class="productsItem">
+                <a href="#Gadgets"><img class="productsimg" src="images/picks.jpg" alt="pick1"></a>
+                <a href="#Gadgets"><h3 class="productsDesc">Product name</h3></a>
+                <a href="#Gadgets"><h4 class="productsDesc">Price of 123$</h4></a>
+            </div>
+            <div class="productsItem">
+                <a href="#Gadgets"><img class="productsimg" src="images/picks.jpg" alt="pick1"></a>
+                <a href="#Gadgets"><h3 class="productsDesc">Product name</h3></a>
+                <a href="#Gadgets"><h4 class="productsDesc">Price of 123$</h4></a>
+            </div>
+            <div class="productsItem">
+                <a href="#Gadgets"><img class="productsimg" src="images/picks.jpg" alt="pick1"></a>
+                <a href="#Gadgets"><h3 class="productsDesc">Product name</h3></a>
+                <a href="#Gadgets"><h4 class="productsDesc">Price of 123$</h4></a>
+            </div>
+            <div class="productsItem">
+                <a href="#Gadgets"><img class="productsimg" src="images/picks.jpg" alt="pick1"></a>
+                <a href="#Gadgets"><h3 class="productsDesc">Product name</h3></a>
+                <a href="#Gadgets"><h4 class="productsDesc">Price of 123$</h4></a>
+            </div>
+            <div class="productsItem">
+                <a href="#Gadgets"><img class="productsimg" src="images/picks.jpg" alt="pick1"></a>
+                <a href="#Gadgets"><h3 class="productsDesc">Product name</h3></a>
+                <a href="#Gadgets"><h4 class="productsDesc">Price of 123$</h4></a>
+            </div>
+        </div>
+        <button type="button" class="btn">More products</button>
+    </div>
+    <!--Content Here-->
+    <!--footer-->
+    <div class="footer">
+        <div class="footerList">
+            <div class="footerleft">
+                <h1>ClickPick</h1>
+                <div class="footerList">
+                    <p>A custom guitar pick is always better than some<br>
+                    random pick with no soul. Our products holds true<br>
+                    and always be made for happiness</p>
+                    <p style="padding-left:30px">Random location<br>
+                    12345 what street<br>
+                    Nowhere</p>
+                </div>
+            </div>
+            <div class="footerright">
+                <h3>Useful Link</h3>
+                <div class="footerList">
+                    <li><a href="#About">About</a></li>
+                    <li><a href="#Features">Features</a></li>
+                    <li><a href="#Credits">Credits</a></li>
+                </div>
+                <div>
+                    <img width="50" height="40" src="images/VisaBadge.svg">
+                    <img width="50" height="40" src="images/MasterCardBadge.svg">
+                    <img width="50" height="40" src="images/PaypalBadge.svg">
+                </div>
+            </div>
+        </div>
+        <hr style="border: 1px solid #FAFAFA;">
+        <div class="footer">
+            <div class="footerleft" style="padding-left: 160px; margin-top: 7px;">
+                <p>Created by ClickPick &copy; 2025</p>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+</html>

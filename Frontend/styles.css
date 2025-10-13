@@ -1,0 +1,383 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: #FAFAFA;
+    font-family: 'Inter', sans-serif;
+}
+nav{
+    background: #3B82F6;
+    height: 80px;
+    width: 100%;
+}
+
+#navbar{
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+}
+
+hr{
+    margin-left: 150px;
+    margin-right: 150px;
+}
+
+label.logo{
+    color:#FAFAFA;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 40px;
+    font-weight: bold;
+    align-items: center;
+    float: left;
+    font-family: 'Inter', sans-serif;
+}
+
+.topbarlink{
+    color: #FAFAFA;
+    font-size: 18px;
+    padding: 0px 20px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.profile{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.cart{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.signinbtn{
+    background: #FAFAFA;
+    color: #3B82F6;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 0px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.search{
+    display: block;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+section{
+    background: #FAFAFA;
+    padding: 80px 13% 70px;
+}
+
+.advertise{
+    background-image: url("images/backgroundReal.jpg");
+    height: auto;
+    color: #FAFAFA;
+    background-size: cover;
+    background-position: center;
+    padding: 50px 13%;
+    text-align: center;
+}
+
+.contactBox{
+    height: 100%;
+    width: 40%;
+    background: #3B82F6;
+    color: #FAFAFA;
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.content{
+    background-color: #FAFAFA;
+    color: #000000;
+    background-size: cover;
+    background-position: center;
+    padding: 50px 13%;
+    text-align: center;
+}
+
+.advertise h1{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.advertise h2{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.advertise h3{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.advertise p{
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.footer{
+    background: #3B82F6;
+    color: #FAFAFA;
+    text-align: center;
+    padding: 30px 0;
+}
+
+hr{
+    border: 1px solid;
+}
+
+.footerleft{
+    float: left;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.footerright{
+    float: right;
+    color: #FAFAFA;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.footerright a{
+    line-height: 40px;
+    margin: 0 5px;
+    color: #FAFAFA;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+footer{
+    color: #FAFAFA;
+    text-align: center;
+    margin-top: 30px;
+    padding: auto;
+}
+
+.footerList{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.products{
+    background-color: #FAFAFA;
+    color: #000000;
+    background-size: cover;
+    background-position: center;
+    padding: 50px 13%;
+    text-align: center;
+}
+
+.productsimg{
+    width: 160px;
+    height: 200px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.cartimg{
+    width: 80px;
+    height: 100px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.cartGroup{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    margin-bottom: 60px
+}
+
+.cartprice{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: end; 
+    margin-right: 10px;
+}
+
+.cartitemDetails{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: start; 
+    margin-left: 10px;
+}
+
+.billingFrame{
+    border-width: 2px; 
+    border-style: solid; 
+    border-color: #3B82F6; 
+    height: 100%; 
+    margin-top: 40px; 
+    margin-bottom: 40px; 
+    margin-right: 160px; 
+    border-radius: 10px; 
+    padding:20px 20px; 
+    width: 30%;
+}
+
+.finalbillinginfo{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.billingInfo{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    align-items: left;
+    padding-left: 10px; 
+    padding-right: 10px;
+}
+
+.productsDesc{
+    color: #000000;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn{
+    display: inline-block;
+    background: #2563EB;
+    color: #FAFAFA;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 30px;
+    margin-top: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.productslist{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #2563EB;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.formPad{
+    background-color: #FAFAFA;
+    color: #000000;
+    background-size: cover;
+    background-position: center;
+    padding: 10px 13%;
+    text-align: center;
+}
+
+.formStyle{
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+}
+
+input[type="checkbox" ]{
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: #FAFAFA;
+}
+
+input[type="checkbox" ]:checked{
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: #2196F3;
+}
+
+input[type="number"]{
+    width: 100px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #2563EB;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.instock{
+    text-align: left;
+    margin-top: 20px;
+    font-weight: bold;
+    padding-left: 160px;
+    color:limegreen;
+}
+
+.outstock{
+    text-align: left;
+    margin-top: 20px;
+    font-weight: bold;
+    padding-left: 160px;
+    color:rgb(205, 50, 50);
+}
+
+.billingleft{
+    float: left;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.billingright{
+    float: right;
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 20px;
+}
