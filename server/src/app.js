@@ -12,7 +12,7 @@ import { router as cartRouter } from './routes/cart.js';
 import { router as ordersRouter } from './routes/orders.js';
 import { router as productRouter } from './routes/products.js';
 
-dotenv.config();
+dotenv.config(); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,8 +25,8 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
+app.get('/', (_req, res) => res.json({ msg: 'welcome to api roots eiei' }));
 
-app.get('/',)
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api', cartRouter);
