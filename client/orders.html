@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Orders</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <nav>
+        <a href="./cart.html">Cart</a>
+      </nav>
+    </header>
+    <div class="container">
+      <h2>Your Orders</h2>
+      <div id="list"></div>
+    </div>
+    <script type="module">
+      import { orders } from './assets/js/api.js';
+      async function load() {
+        const data = await orders.list();
+        document.getElementById('list').innerHTML = data.map(o => `
+          <div class='card'>
+            <div><strong>${o.id}</strong></div>
+            <div>Status: <strong>${o.status}</strong></div>
+            <div>Total: <strong>${o.total} THB</strong></div>
+            <div>Created: ${new Date(o.created_at).toLocaleString()}</div>
+          </div>`).join('');
+      }
+      load();
+    </script>
+  </body>
+</html>
+

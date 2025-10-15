@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Payment</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <nav>
+        <a href="./orders.html">Orders</a>
+      </nav>
+    </header>
+    <div class="container">
+      <h2>Mock Payment</h2>
+      <div class="card">
+        <input id="order_id" placeholder="Order ID (auto)" disabled />
+        <input id="card_number" placeholder="Card number (any)" />
+        <div class="row"><input id="name_on_card" placeholder="Name on card" /><input id="exp" placeholder="MM/YY" /></div>
+        <input id="cvc" placeholder="CVC" />
+        <button class="btn" id="pay">Pay</button>
+      </div>
+    </div>
+    <script type="module">
+      import { cart, orders } from './assets/js/api.js';
+      let currentOrderId;
+      async function init() {
+        const data = await cart.get();
+        if (data.order.status === 'pending') {
+          currentOrderId = data.order.id;
+          document.getElementById('order_id').value = currentOrderId;
+        } else {
+          alert('No pending order. Please checkout first.');
+          location.href = './checkout.html';
+        }
+      }
+      document.getElementById('pay').addEventListener('click', async () => {
+        try {
+          const payload = {
+            card_number: document.getElementById('card_number').value,
+            name_on_card: document.getElementById('name_on_card').value,
+            exp: document.getElementById('exp').value,
+            cvc: document.getElementById('cvc').value
+          };
+          await orders.pay(currentOrderId, payload);
+          alert('Payment successful');
+          location.href = './orders.html';
+        } catch(e) { alert(e.message); }
+      });
+      init();
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Product</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <nav>
+        <a href="./cart.html">Cart</a>
+        <a href="./checkout.html">Checkout</a>
+      </nav>
+    </header>
+    <div class="container">
+      <div id="product"></div>
+      <div id="customization" style="display:none; margin-top:16px" class="card">
+        <h3>Customize Pick</h3>
+        <label>Shape</label>
+        <div>
+          <label><input type="radio" name="shape" value="standard" checked /> standard</label>
+          <label><input type="radio" name="shape" value="jazz" /> jazz</label>
+          <label><input type="radio" name="shape" value="triangle" /> triangle</label>
+        </div>
+        <label>Color</label>
+        <select id="color">
+          <option value="#3B82F6">#3B82F6</option>
+          <option value="white">white</option>
+        </select>
+        <label>Text</label>
+        <input id="text" maxlength="50" placeholder="Short engraving" />
+      </div>
+      <div class="row" style="margin-top:16px">
+        <input id="qty" type="number" min="1" value="1" />
+        <button class="btn" id="addBtn">Add to Cart</button>
+      </div>
+    </div>
+    <script type="module">
+      import { products, cart, auth } from './assets/js/api.js';
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      let prod;
+      async function init() {
+        prod = await products.get(id);
+        document.getElementById('product').innerHTML = `
+          <div class="card">
+            <img src="${prod.image}" style="width:100%;max-width:480px;border-radius:6px" />
+            <h2>${prod.name}</h2>
+            <p>${prod.description}</p>
+            <p><strong>${prod.price} THB</strong></p>
+            <p>Category: ${prod.category}</p>
+          </div>`;
+        if (prod.category === 'custompick') document.getElementById('customization').style.display = 'block';
+      }
+      document.getElementById('addBtn').addEventListener('click', async () => {
+        try {
+          const quantity = Number(document.getElementById('qty').value || '1');
+          const payload = { product_id: prod.id, quantity };
+          if (prod.category === 'custompick') {
+            const shape = document.querySelector('input[name="shape"]:checked').value;
+            const color = document.getElementById('color').value;
+            const text = document.getElementById('text').value;
+            payload.customization = { shape, color, text };
+          }
+          await cart.add(payload);
+          alert('Added to cart');
+          location.href = './cart.html';
+        } catch(e) { alert(e.message); }
+      });
+      init();
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Admin</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <nav>
+        <a href="./orders.html">Orders</a>
+      </nav>
+    </header>
+    <div class="container">
+      <h2>Admin – Products</h2>
+      <div class="card">
+        <div class="row">
+          <input id="name" placeholder="Name" />
+          <input id="price" type="number" step="0.01" placeholder="Price" />
+        </div>
+        <input id="image" placeholder="Image path (Supabase storage)" />
+        <select id="category">
+          <option value="preset">preset</option>
+          <option value="gadget">gadget</option>
+          <option value="custompick">custompick</option>
+        </select>
+        <input id="stock" type="number" placeholder="Stock" />
+        <textarea id="description" placeholder="Description" style="width:100%;height:80px"></textarea>
+        <button class="btn" id="create">Create</button>
+      </div>
+      <div id="productList" style="margin-top:16px"></div>
+
+      <h2 style="margin-top:24px">Admin – Orders</h2>
+      <div id="orderList"></div>
+    </div>
+    <script type="module">
+      import { products, orders } from './assets/js/api.js';
+      async function loadProducts() {
+        const list = await products.list();
+        document.getElementById('productList').innerHTML = list.map(p => `
+          <div class='card'>
+            <div><strong>${p.name}</strong> – ${p.category} – ${p.price} THB – stock ${p.stock}</div>
+            <button class='btn' onclick='window.deleteProduct("${p.id}")'>Delete</button>
+          </div>`).join('');
+      }
+      async function loadOrders() {
+        const list = await orders.list();
+        document.getElementById('orderList').innerHTML = list.map(o => `
+          <div class='card'>
+            <div><strong>${o.id}</strong> – ${o.status} – ${o.total} THB</div>
+            <button class='btn' onclick='window.ship("${o.id}")'>Ship</button>
+            <button class='btn' onclick='window.deliver("${o.id}")'>Deliver</button>
+          </div>`).join('');
+      }
+      document.getElementById('create').addEventListener('click', async () => {
+        const p = {
+          name: document.getElementById('name').value,
+          description: document.getElementById('description').value,
+          price: Number(document.getElementById('price').value),
+          stock: Number(document.getElementById('stock').value),
+          image: document.getElementById('image').value,
+          category: document.getElementById('category').value
+        };
+        await fetch('/api/products', { method:'POST', headers: { 'Content-Type':'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }, body: JSON.stringify(p) });
+        loadProducts();
+      });
+      window.deleteProduct = async (id) => {
+        await fetch('/api/products/' + id, { method:'DELETE', headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } });
+        loadProducts();
+      };
+      window.ship = async (id) => { await fetch('/api/orders/' + id + '/ship', { method:'POST', headers: { 'Authorization':'Bearer ' + localStorage.getItem('token') } }); loadOrders(); };
+      window.deliver = async (id) => { await fetch('/api/orders/' + id + '/deliver', { method:'POST', headers: { 'Authorization':'Bearer ' + localStorage.getItem('token') } }); loadOrders(); };
+      loadProducts(); loadOrders();
+    </script>
+  </body>
+</html>
+
