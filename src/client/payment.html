@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -7,55 +7,53 @@
     <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
   <body>
-    <header>
-      <div>
-        <a href="./" style="display: flex; flex-direction: row; align-items: center;">
-          <img src="./images/logo.svg" style="width: 2rem; height: 2rem;"/>
-          <strong style="font-size: 2rem;">ClickPick</strong>
-        </a>
-      </div>
-      <nav>
-        <a href="./cart">Cart</a>
-      </nav>
-    </header>
+    <header></header>
     <div class="container">
-      <h2>Mock Payment</h2>
+      <h2>Payment</h2>
       <div class="card">
         <input id="order_id" placeholder="Order ID (auto)" disabled />
         <input id="card_number" placeholder="Card number (any)" />
-        <div class="row"><input id="name_on_card" placeholder="Name on card" /><input id="exp" placeholder="MM/YY" /></div>
+        <div class="row">
+          <input id="name_on_card" placeholder="Name on card" /><input
+            id="exp"
+            placeholder="MM/YY"
+          />
+        </div>
         <input id="cvc" placeholder="CVC" />
         <button class="btn" id="pay">Pay</button>
       </div>
     </div>
+    <script type="module" src="./assets/js/header.js"></script>
     <script type="module">
-      import { cart, orders } from './assets/js/api.js';
+      import { pending, orders } from "./assets/js/api.js";
       let currentOrderId;
       async function init() {
-        const data = await cart.get();
-        if (data.order.status === 'pending') {
+        const data = await pending.get();
+        if (data.order.status === "pending") {
+          console.log(data);
           currentOrderId = data.order.id;
-          document.getElementById('order_id').value = currentOrderId;
+          document.getElementById("order_id").value = currentOrderId;
         } else {
-          alert('No pending order. Please checkout first.');
-          location.href = './checkout';
+          alert("No pending order. Please checkout first.");
+          location.href = "./checkout";
         }
       }
-      document.getElementById('pay').addEventListener('click', async () => {
+      document.getElementById("pay").addEventListener("click", async () => {
         try {
           const payload = {
-            card_number: document.getElementById('card_number').value,
-            name_on_card: document.getElementById('name_on_card').value,
-            exp: document.getElementById('exp').value,
-            cvc: document.getElementById('cvc').value
+            card_number: document.getElementById("card_number").value,
+            name_on_card: document.getElementById("name_on_card").value,
+            exp: document.getElementById("exp").value,
+            cvc: document.getElementById("cvc").value,
           };
           await orders.pay(currentOrderId, payload);
-          alert('Payment successful');
-          location.href = './orders';
-        } catch(e) { alert(e.message); }
+          alert("Payment successful");
+          location.href = "./orders";
+        } catch (e) {
+          alert(e.message);
+        }
       });
       init();
     </script>
   </body>
 </html>
-

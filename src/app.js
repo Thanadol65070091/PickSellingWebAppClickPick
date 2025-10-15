@@ -7,10 +7,10 @@ import morgan from "morgan";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import { fileURLToPath } from "url";
-import { router as authRouter } from "./routes/auth.js";
-import { router as cartRouter } from "./routes/cart.js";
-import { router as ordersRouter } from "./routes/orders.js";
-import { router as productRouter } from "./routes/products.js";
+import { router as authRouter } from "./routes/authRoute.js";
+import { router as cartRouter } from "./routes/cartRoute.js";
+import { router as ordersRouter } from "./routes/ordersRoute.js";
+import { router as productRouter } from "./routes/productsRoute.js";
 
 dotenv.config();
 
@@ -26,6 +26,20 @@ app.use(cors({ origin: FRONTEND_ORIGIN, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) {
+    res.setHeader(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate"
+    );
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    res.setHeader("Surrogate-Control", "no-store");
+    // กัน proxy แคชผิด user (สำคัญมากเมื่อใช้ JWT)
+    res.setHeader("Vary", "Authorization");
+  }
+  next();
+});
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRouter);
@@ -53,6 +67,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 // client
+
 app.use("/assets", express.static(path.join(clientDir, "assets")));
 app.use("/images", express.static(path.join(clientDir, "images")));
 

@@ -7,17 +7,7 @@
     <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
   <body>
-    <header>
-      <div>
-        <a href="./" style="display: flex; flex-direction: row; align-items: center;">
-          <img src="./images/logo.svg" style="width: 2rem; height: 2rem;"/>
-          <strong style="font-size: 2rem;">ClickPick</strong>
-        </a>
-      </div>
-      <nav>
-        <a href="./cart">Cart</a>
-      </nav>
-    </header>
+    <header></header>
     <div class="container">
       <h2>Admin – Products</h2>
       <div class="card">
@@ -40,6 +30,7 @@
       <h2 style="margin-top:24px">Admin – Orders</h2>
       <div id="orderList"></div>
     </div>
+    <script type="module" src="./assets/js/header.js"></script>
     <script type="module">
       import { products, orders } from './assets/js/api.js';
       async function loadProducts() {

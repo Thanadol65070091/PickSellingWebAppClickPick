@@ -1,18 +1,32 @@
-import { query } from '../db/pool.js';
+import { query } from "../db/pool.js";
 
 export async function listProducts({ q, category, limit = 20, offset = 0 }) {
   const clauses = [];
   const params = [];
-  if (q) { params.push(`%${q}%`); clauses.push(`(name ILIKE $${params.length} OR description ILIKE $${params.length})`); }
-  if (category) { params.push(category); clauses.push(`category = $${params.length}`); }
-  params.push(limit); params.push(offset);
-  const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
-  const { rows } = await query(`SELECT * FROM products ${where} ORDER BY name LIMIT $${params.length-1} OFFSET $${params.length}`, params);
+  if (q) {
+    params.push(`%${q}%`);
+    clauses.push(
+      `(name ILIKE $${params.length} OR description ILIKE $${params.length})`
+    );
+  }
+  if (category) {
+    params.push(category);
+    clauses.push(`category = $${params.length}`);
+  }
+  params.push(limit);
+  params.push(offset);
+  const where = clauses.length ? `WHERE ${clauses.join(" AND ")}` : "";
+  const { rows } = await query(
+    `SELECT * FROM products ${where} ORDER BY name LIMIT $${
+      params.length - 1
+    } OFFSET $${params.length}`,
+    params
+  );
   return rows;
 }
 
 export async function getProduct(id) {
-  const { rows } = await query('SELECT * FROM products WHERE id=$1', [id]);
+  const { rows } = await query("SELECT * FROM products WHERE id=$1", [id]);
   return rows[0] || null;
 }
 
@@ -34,5 +48,5 @@ export async function updateProduct(id, p) {
 }
 
 export async function deleteProduct(id) {
-  await query('DELETE FROM products WHERE id=$1', [id]);
+  await query("DELETE FROM products WHERE id=$1", [id]);
 }

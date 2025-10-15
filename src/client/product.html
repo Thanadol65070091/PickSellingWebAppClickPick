@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -6,47 +6,91 @@
     <title>ClickPick — Product</title>
     <link rel="stylesheet" href="./assets/css/styles.css" />
     <style>
-      .breadcrumbs { color: #64748b; font-size: 14px; margin: 12px 0 8px; }
-      .breadcrumbs a { color: #3B82F6; }
-      .prod-wrap { display:grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items:start; }
-      .thumb { width: 96px; height: 96px; background:#9CA3AF; border-radius:6px; margin-bottom: 12px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; }
-      .main-img { width: 480px; height: 420px; object-fit: cover; border-radius: 6px; background:#6B7280; }
-      .buy-box h2 { margin: 0 0 8px; text-transform: uppercase; }
-      .price { font-weight: 700; margin-right: 10px; }
-      .stock { color: #16a34a; font-weight:600; }
-      .qty { display:inline-flex; align-items:center; gap:6px; }
-      .qty input { width:56px; text-align:center; }
-      .spacer { border: 0; border-top: 1px solid #E5E7EB; margin: 28px 0; }
+      .breadcrumbs {
+        color: #64748b;
+        font-size: 14px;
+        margin: 12px 0 8px;
+      }
+      .breadcrumbs a {
+        color: #3b82f6;
+      }
+      .prod-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .thumb {
+        width: 96px;
+        height: 96px;
+        background: #9ca3af;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+      }
+      .main-img {
+        width: 480px;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 6px;
+        background: #6b7280;
+      }
+      .buy-box h2 {
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+      .price {
+        font-weight: 700;
+        margin-right: 10px;
+      }
+      .stock {
+        color: #16a34a;
+        font-weight: 600;
+      }
+      .qty {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .qty input {
+        width: 56px;
+        text-align: center;
+      }
+      .spacer {
+        border: 0;
+        border-top: 1px solid #e5e7eb;
+        margin: 28px 0;
+      }
     </style>
   </head>
   <body>
     <!-- Header (same as search) -->
-    <header>
-      <div>
-        <a href="./" style="display: flex; flex-direction: row; align-items: center;">
-          <img src="./images/logo.svg" style="width: 2rem; height: 2rem;"/>
-          <strong style="font-size: 2rem;">ClickPick</strong>
-        </a>
-      </div>
-      <div style="display: flex; flex-direction: row; align-items: center; gap: 1rem;">
-        <a class="btn" href="./login">Log in</a>
-        <img src="./images/pfp.png" style="width: 2rem; height: 2rem; border-radius: 999rem;"/>
-        <a href="./cart">
-          <img src="./images/cart.svg" style="width: 1.5rem; height: 1.5rem;"/>
-        </a>
-      </div>
-    </header>
+    <header></header>
 
     <div class="container">
       <div class="breadcrumbs"><a href="./search">Search</a> &gt; Details</div>
       <div id="product" class="prod-wrap"></div>
-      <div id="customization" style="display:none; pointer-events: none; margin-top:16px" class="card">
+      <div
+        id="customization"
+        style="display: none; margin-top: 16px"
+        class="card nohover"
+      >
         <h3>Customize Pick</h3>
         <label>Shape</label>
         <div>
-          <label><input type="radio" name="shape" value="standard" checked /> standard</label>
+          <label
+            ><input type="radio" name="shape" value="standard" checked />
+            standard</label
+          >
           <label><input type="radio" name="shape" value="jazz" /> jazz</label>
-          <label><input type="radio" name="shape" value="triangle" /> triangle</label>
+          <label
+            ><input type="radio" name="shape" value="triangle" />
+            triangle</label
+          >
         </div>
         <label>Color</label>
         <select id="color">
@@ -57,99 +101,127 @@
         <input id="text" maxlength="50" placeholder="Short engraving" />
       </div>
 
-      <hr class="spacer"/>
+      <hr class="spacer" />
 
       <section>
-        <h2 style="text-align:center;">Related Product</h2>
+        <h2 style="text-align: center">Related Product</h2>
         <div id="related" class="grid"></div>
       </section>
     </div>
 
     <script type="module">
-      import { products, cart } from './assets/js/api.js';
+      import { products, cart } from "./assets/js/api.js";
       const params = new URLSearchParams(location.search);
-      const id = params.get('id');
+      const id = params.get("id");
       let prod;
 
       const getImage = (category) => {
-        if (category === 'gadget'){
-          const imgToRandom = ['amp.jpg','capo.jpg','pedal.jpg','strap.jpg','string.jpg'];
+        if (category === "gadget") {
+          const imgToRandom = [
+            "amp.jpg",
+            "capo.jpg",
+            "pedal.jpg",
+            "strap.jpg",
+            "string.jpg",
+          ];
           const i = Math.floor(Math.random() * imgToRandom.length);
           return imgToRandom[i];
         }
-        return 'pick.jpg';
-      }
+        return "pick.jpg";
+      };
 
       function renderProduct() {
-        const container = document.getElementById('product');
+        const container = document.getElementById("product");
         const stock = Number(prod.stock || 0);
         const mainImg = `./images/products/${getImage(prod.category)}`;
         container.innerHTML = `
           <img class="main-img" src="${mainImg}" alt="${prod.name}"/>
           <div class="buy-box">
             <h2>${prod.name}</h2>
-            <p><span class="price">${prod.price} THB</span> <span class="stock">${stock>0 ? 'In-stock' : 'Out of stock'}</span></p>
+            <p><span class="price">${
+              prod.price
+            } THB</span> <span class="stock">${
+          stock > 0 ? "In-stock" : "Out of stock"
+        }</span></p>
             <p style="max-width: 520px;">${prod.description}</p>
             <div class="qty" style="margin: 10px 0 14px;">
               <button id="dec" class="btn" style="padding:6px 10px">-</button>
-              <input id="qty" type="number" min="1" value="1" ${stock>0?'':'disabled'} />
+              <input id="qty" type="number" min="1" value="1" ${
+                stock > 0 ? "" : "disabled"
+              } />
               <button id="inc" class="btn" style="padding:6px 10px">+</button>
-              <button id="addBtn" class="btn" style="margin-left:10px;" ${stock>0?'':'disabled'}>Add to cart</button>
+              <button id="addBtn" class="btn" style="margin-left:10px;" ${
+                stock > 0 ? "" : "disabled"
+              }>Add to cart</button>
             </div>
           </div>
         `;
 
-        document.getElementById('dec').addEventListener('click', () => {
-          const el = document.getElementById('qty');
-          const v = Math.max(1, (parseInt(el.value||'1',10) - 1));
+        document.getElementById("dec").addEventListener("click", () => {
+          const el = document.getElementById("qty");
+          const v = Math.max(1, parseInt(el.value || "1", 10) - 1);
           el.value = v;
         });
-        document.getElementById('inc').addEventListener('click', () => {
-          const el = document.getElementById('qty');
-          const v = (parseInt(el.value||'1',10) + 1);
+        document.getElementById("inc").addEventListener("click", () => {
+          const el = document.getElementById("qty");
+          const v = parseInt(el.value || "1", 10) + 1;
           el.value = v;
         });
-        document.getElementById('addBtn').addEventListener('click', addToCart);
+        document.getElementById("addBtn").addEventListener("click", addToCart);
       }
 
       async function addToCart() {
         try {
-          const quantity = Number(document.getElementById('qty').value || '1');
+          const quantity = Number(document.getElementById("qty").value || "1");
           const payload = { product_id: prod.id, quantity };
-          if (prod.category === 'custompick') {
-            const shape = document.querySelector('input[name="shape"]:checked')?.value || 'standard';
-            const color = document.getElementById('color')?.value || '#3B82F6';
-            const text = document.getElementById('text')?.value || '';
+          if (prod.category === "custompick") {
+            const shape =
+              document.querySelector('input[name="shape"]:checked')?.value ||
+              "standard";
+            const color = document.getElementById("color")?.value || "#3B82F6";
+            const text = document.getElementById("text")?.value || "";
             payload.customization = { shape, color, text };
           }
           await cart.add(payload);
-          alert('Added to cart');
-          location.href = './cart';
-        } catch(e) { alert(e.message); }
+          alert("Added to cart");
+          location.href = "./cart";
+        } catch (e) {
+          alert(e.message);
+        }
       }
 
       async function loadRelated() {
         const list = await products.list({ category: prod.category });
-        const related = list.filter(p => p.id !== prod.id).slice(0,5);
-        const grid = document.getElementById('related');
-        grid.innerHTML = related.map(p => `
+        const related = list.filter((p) => p.id !== prod.id).slice(0, 5);
+        const grid = document.getElementById("related");
+        grid.innerHTML = related
+          .map(
+            (p) => `
           <div class="card">
-            <img src="./images/products/${getImage(p.category)}" alt="${p.category}" style="width:100%;height:140px;object-fit:cover;border-radius:6px" />
+            <img src="./images/products/${getImage(p.category)}" alt="${
+              p.category
+            }" style="width:100%;height:140px;object-fit:cover;border-radius:6px" />
             <h3 style="margin-top:0px">${p.name}</h3>
             <p style="margin-top:0px"><strong>${p.price} THB</strong></p>
-            <a class="btn" style="margin-top:0px; display:block; text-align:center;" href="./product?id=${p.id}">View</a>
+            <a class="btn" style="margin-top:0px; display:block; text-align:center;" href="./product?id=${
+              p.id
+            }">View</a>
           </div>
-        `).join('');
+        `
+          )
+          .join("");
       }
 
       async function init() {
         prod = await products.get(id);
         renderProduct();
-        if (prod.category === 'custompick') document.getElementById('customization').style.display = 'block';
+        if (prod.category === "custompick")
+          document.getElementById("customization").style.display = "block";
         await loadRelated();
       }
 
       init();
     </script>
+    <script type="module" src="./assets/js/header.js"></script>
   </body>
 </html>
