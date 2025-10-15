@@ -59,7 +59,7 @@ export async function addItem(userId, { product_id, quantity, customization }) {
     if (customization)
       throw new Error("Customization not allowed for this product");
   }
-  const price = product.price; // snapshot unit price
+  const price = product.price;
   const { rows: itemRows } = await query(
     `INSERT INTO order_items (order_id, product_id, quantity, price)
      VALUES ($1,$2,$3,$4) RETURNING *`,

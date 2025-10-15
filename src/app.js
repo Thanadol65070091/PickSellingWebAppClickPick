@@ -67,7 +67,6 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 // client
-
 app.use("/assets", express.static(path.join(clientDir, "assets")));
 app.use("/images", express.static(path.join(clientDir, "images")));
 
