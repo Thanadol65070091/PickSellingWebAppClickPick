@@ -1,3 +1,5 @@
+//เชื่อมกับ backend
+
 const API_BASE = "/api";
 
 function getToken() {

@@ -51,7 +51,7 @@ app.use("/api", ordersRouter);
 const swaggerPath = path.join(process.cwd(), "src", "swagger", "openapi.json");
 const swaggerDoc = JSON.parse(fs.readFileSync(swaggerPath, "utf-8"));
 app.get("/api-docs.json", (_req, res) => res.json(swaggerDoc));
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use((err, _req, res, _next) => {
   console.error(err);

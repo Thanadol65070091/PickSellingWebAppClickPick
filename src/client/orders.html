@@ -13,12 +13,12 @@
       <div id="list"></div>
     </div>
     <script type="module" src="./assets/js/header.js"></script>
-    <script type="module">
+    <script type="module">  
       import { orders } from './assets/js/api.js';
       async function load() {
         const data = await orders.list();
         document.getElementById('list').innerHTML = data.map(o => `
-          <div class='card'>
+          <div class='card nohover'>
             <div><strong>${o.id}</strong></div>
             <div>Status: <strong>${o.status}</strong></div>
             <div>Total: <strong>${o.total} THB</strong></div>

@@ -1,3 +1,5 @@
+//ข้อมูลเริ่มต้นเข้าไปใน db
+
 import dotenv from 'dotenv';
 import pg from 'pg';
 import bcrypt from 'bcrypt';

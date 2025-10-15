@@ -30,7 +30,7 @@ export async function getProduct(id) {
   return rows[0] || null;
 }
 
-export async function createProduct(p) {
+export async function createProduct(p) {//ไม่ได้ใช้
   const { rows } = await query(
     `INSERT INTO products (name, description, price, stock, image, category)
      VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,

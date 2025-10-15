@@ -54,7 +54,7 @@ export async function deleteCartItem(req, res) {
   }
 }
 
-export async function recalc(req, res) {
+export async function recalc(req, res) { //คำนวณตัง
   const order = await getOrCreateDraftOrder(req.user.sub);
   await recomputeTotals(order.id);
   const items = await getCart(order.id);

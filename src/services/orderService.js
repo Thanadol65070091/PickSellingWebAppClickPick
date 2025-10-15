@@ -217,7 +217,7 @@ export async function payment(orderId) {
   return updated[0];
 }
 
-export async function listOrdersForUser(user) {
+export async function listOrdersForUser(user) {//ไม่ได้ใช้
   if (user.role === "admin") {
     const { rows } = await query(
       "SELECT * FROM orders ORDER BY created_at DESC"
