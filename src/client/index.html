@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick — Home</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header></header>
+
+    <section class="hero">
+      <div class="inner">
+        <div>
+          <h1>
+            Custom your pick<br/>
+            Upgrade your playing<br/>
+            experience
+          </h1>
+          <p>
+            Select through the variety of materials and shapes to
+            customize your playing to the fullest.
+          </p>
+          <a class="btn cta" href="./search">Try it out</a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="sq s1"></span>
+          <span class="sq s2"></span>
+          <span class="sq s3"></span>
+          <span class="sq s4"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Top seller</h2>
+        <div id="top-grid" class="grid" style="margin-inline: auto;"></div>
+        <div class="center" style="margin-top: 20px;">
+          <a class="btn" href="./search">More Product</a>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script type="module" src="./assets/js/header.js"></script>
+  <script type="module">
+    import { products } from './assets/js/api.js';
+
+    const grid = document.getElementById('top-grid');
+
+    function getImage(category){
+      if (category === 'gadget'){
+        const imgs = ['amp.jpg','capo.jpg','pedal.jpg','strap.jpg','string.jpg'];
+        return imgs[Math.floor(Math.random()*imgs.length)];
+      }
+      return 'pick.jpg';
+    }
+
+    async function loadTop(){
+      try {
+        const list = await products.list();
+        const top = list.slice(0, 6);
+        grid.innerHTML = top.map(p => `
+          <div class="card">
+            <img src="./images/products/${getImage(p.category)}" alt="${p.category}" style="width:100%;height:140px;object-fit:cover;border-radius:6px" />
+            <h3 style="margin-top:0px">${p.name}</h3>
+            <p style="margin-top:0px"><strong>${p.price} THB</strong></p>
+            <a class="btn" style="margin-top:0px; display:block; text-align:center;" href="./product?id=${p.id}">View</a>
+          </div>
+        `).join('');
+      } catch (e) {
+        grid.innerHTML = '<p style="text-align:center">Failed to load products.</p>';
+        console.error(e);
+      }
+    }
+
+    loadTop();
+  </script>
+</html>
