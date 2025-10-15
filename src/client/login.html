@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick — Log in</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <style>
+      .auth-wrap { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+      .tabs { display:flex; gap:8px; margin-bottom: 16px; }
+      .tab { background:#e5e7eb; color:#111; border-radius:6px; padding:8px 12px; cursor:pointer; }
+      .tab.active { background: var(--blue); color: white; }
+      .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .error { color:#b91c1c; margin: 8px 0 0; }
+      form .row { gap: 8px; }
+
+      input {
+        width:100%;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header></header>
+
+    <div class="auth-wrap">
+      <div class="tabs">
+        <button id="tab-login" class="tab active">Login</button>
+        <button id="tab-register" class="tab">Register</button>
+      </div>
+      <div style="width: 60rem; padding: 1rem; display: flex; flex-direction: column;">
+        <form id="login-form" class="card nohover">
+          <h3>Login to your account</h3>
+          <label>Email</label>
+          <input id="login-email" type="email" placeholder="you@example.com" required />
+          <label>Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required />
+          <div class="row" style="margin-top:12px;">
+            <button type="submit" class="btn">Login</button>
+            <a href="./" class="btn" style="text-align: center; background:#e5e7eb;color:#111;">Cancel</a>
+          </div>
+          <div id="login-error" class="error" style="display:none;"></div>
+        </form>
+
+        <form id="register-form" class="card nohover" style=" display:none;">
+          <h3>Create new account</h3>
+          <label>Name</label>
+          <input id="reg-name" type="text" placeholder="Your name" required />
+          <label>Email</label>
+          <input id="reg-email" type="email" placeholder="you@example.com" required />
+          <label>Password</label>
+          <input id="reg-password" type="password" placeholder="At least 8 characters" required />
+          <div class="row" style="margin-top:12px;">
+            <button type="submit" class="btn">Register</button>
+            <a href="./" class="btn" style="text-align: center; background:#e5e7eb;color:#111;">Cancel</a>
+          </div>
+          <div id="reg-error" class="error" style="display:none;"></div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./assets/js/header.js"></script>
+    <script type="module">
+      import { auth } from './assets/js/api.js';
+
+      const $ = (s) => document.querySelector(s);
+      const loginTab = $('#tab-login');
+      const registerTab = $('#tab-register');
+      const loginForm = $('#login-form');
+      const registerForm = $('#register-form');
+
+      function setTab(which){
+        const loginActive = which === 'login';
+        loginTab.classList.toggle('active', loginActive);
+        registerTab.classList.toggle('active', !loginActive);
+        loginForm.style.display = loginActive ? 'block' : 'none';
+        registerForm.style.display = loginActive ? 'none' : 'block';
+      }
+      loginTab.addEventListener('click', () => setTab('login'));
+      registerTab.addEventListener('click', () => setTab('register'));
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        $('#login-error').style.display = 'none';
+        try {
+          const email = $('#login-email').value.trim();
+          const password = $('#login-password').value;
+          await auth.login(email, password);
+          location.href = './';
+        } catch (err) {
+          $('#login-error').textContent = err.message || 'Login failed';
+          $('#login-error').style.display = 'block';
+        }
+      });
+
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        $('#reg-error').style.display = 'none';
+        try {
+          const name = $('#reg-name').value.trim();
+          const email = $('#reg-email').value.trim();
+          const password = $('#reg-password').value;
+          if (password.length < 8) throw new Error('Password must be at least 8 characters');
+          await auth.register(name, email, password);
+          location.href = './';
+        } catch (err) {
+          $('#reg-error').textContent = err.message || 'Registration failed';
+          $('#reg-error').style.display = 'block';
+        }
+      });
+    </script>
+  </body>
+</html>

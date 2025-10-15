@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Cart</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header></header>
+    <div class="container">
+      <h2>Your Cart</h2>
+      <div id="list"></div>
+      <div id="totals" class="card nohover" style="margin-top: 16px"></div>
+      <button class="btn" onclick="location.href='checkout'">
+        Proceed to Checkout
+      </button>
+    </div>
+    <script type="module" src="./assets/js/header.js"></script>
+    <script type="module">
+      import { cart } from "./assets/js/api.js";
+      async function load() {
+        const data = await cart.get();
+        const items = data.items;
+        const list = document.getElementById("list");
+        list.innerHTML = items
+          .map(
+            (it) => `
+          <div class='card nohover'>
+            <div><strong>${it.product_name}</strong> x ${it.quantity} @ ${
+              it.price
+            } THB</div>
+            ${
+              it.category === "custompick"
+                ? `<div>Customization: <em>${
+                    it.customization_id ? "Set" : "None"
+                  }</em></div>`
+                : ""
+            }
+            <div class='row' style='margin-top:8px'>
+              <input type='number' min='1' value='${
+                it.quantity
+              }' onchange='window.updateQty("${it.id}", this.value)' />
+              <button class='btn' onclick='window.removeItem("${
+                it.id
+              }")'>Remove</button>
+            </div>
+          </div>`
+          )
+          .join("");
+        document.getElementById("totals").innerHTML = `
+          <div>Delivery fee: <strong>${data.order.delivery_fee} THB</strong></div>
+          <div>Discount: <strong>${data.order.discount} THB</strong></div>
+          <div>Total: <strong>${data.order.total} THB</strong></div>`;
+      }
+      window.updateQty = async (id, qty) => {
+        await cart.update(id, { quantity: Number(qty) });
+        load();
+      };
+      window.removeItem = async (id) => {
+        await cart.remove(id);
+        load();
+      };
+      load();
+    </script>
+  </body>
+</html>

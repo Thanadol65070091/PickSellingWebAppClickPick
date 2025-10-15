@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick – Checkout</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+  </head>
+  <body>
+    <header></header>
+    <div class="container">
+      <h2>Billing Detail</h2>
+      <div class="card nohover">
+        <div class="row">
+          <input id="email" placeholder="Email" /><input
+            id="phone"
+            placeholder="Phone"
+          />
+        </div>
+        <div class="row">
+          <input id="firstname" placeholder="First name" /><input
+            id="lastname"
+            placeholder="Last name"
+          />
+        </div>
+        <input id="company" placeholder="Company (optional)" />
+        <input id="address" placeholder="Address" />
+        <div class="row">
+          <input id="city" placeholder="City" /><input
+            id="country"
+            placeholder="Country (default Thailand)"
+            value="Thailand"
+          />
+        </div>
+        <input id="postal_code" placeholder="Postal code" />
+        <input id="order_notes" placeholder="Order notes (optional)" />
+        <button class="btn" id="save">Continue to Payment</button>
+      </div>
+    </div>
+    <script type="module" src="./assets/js/header.js"></script>
+    <script type="module">
+      import { cart } from "./assets/js/api.js";
+      document.getElementById("save").addEventListener("click", async () => {
+        const pick = (id) => document.getElementById(id).value;
+        const billing = {
+          email: pick("email"),
+          firstname: pick("firstname"),
+          lastname: pick("lastname"),
+          company: pick("company"),
+          address: pick("address"),
+          city: pick("city"),
+          country: pick("country") || "Thailand",
+          postal_code: pick("postal_code"),
+          phone: pick("phone"),
+          order_notes: pick("order_notes"),
+        };
+        try {
+          const order = await cart.checkout(billing);
+          alert("Order placed! Order ID: " + order.id);
+          location.href = "./payment";
+        } catch (e) {
+          alert(e.message);
+        }
+      });
+    </script>
+  </body>
+</html>
