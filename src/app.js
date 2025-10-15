@@ -54,6 +54,7 @@ if (process.env.NODE_ENV !== "test") {
 
 // client
 app.use("/assets", express.static(path.join(clientDir, "assets")));
+app.use("/images", express.static(path.join(clientDir, "images")));
 
 app.get("/", (_req, res) => {
   res.sendFile(path.join(clientDir, "index.html"));
@@ -78,6 +79,18 @@ app.get("/payment", (_req, res) => {
 
 app.get("/product", (_req, res) => {
   res.sendFile(path.join(clientDir, "product.html"));
+});
+
+app.get("/contact", (_req, res) => {
+  res.sendFile(path.join(clientDir, "contact.html"));
+});
+
+app.get("/login", (_req, res) => {
+  res.sendFile(path.join(clientDir, "login.html"));
+});
+
+app.get("/search", (_req, res) => {
+  res.sendFile(path.join(clientDir, "search.html"));
 });
 
 export default app;

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ClickPick — Contact</title>
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <style>
+      .hero {
+        background: linear-gradient(180deg, #9DC6FF, #95C1FF);
+        color: white;
+        padding: 48px 16px 80px;
+        height: 20rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .hero h2 { margin: 0; font-size: clamp(22px, 3.6vw, 28px); }
+      .hero p { max-width: 720px; margin: 12px auto 0; color: white; }
+      .cards { max-width: 980px; margin: -60px auto 40px; padding: 0 16px; }
+      .cards-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+      .card-cta {
+        background: #2B5BFB;
+        color: #fff;
+        border-radius: 6px;
+        padding: 28px 24px;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.18) 0 8px 18px;
+        z-index: 10;
+      }
+      .card-cta h3 { margin: 8px 0 6px; }
+      .card-cta p { margin: 0 0 14px; color: #EAF2FF; }
+      .cta-white { background: white; color: #1D4ED8; display: inline-block; }
+      .icon { width: 8rem; height: 8rem; margin: 0 auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="./" style="display: flex; flex-direction: row; align-items: center;">
+          <img src="./images/logo.svg" style="width: 2rem; height: 2rem;"/>
+          <strong style="font-size: 2rem;">ClickPick</strong>
+        </a>
+      </div>
+      <div style="display: flex; flex-direction: row; align-items: center; gap: 1rem;">
+        <a class="btn" href="./login">Log in</a>
+        <img src="./images/pfp.png" style="width: 2rem; height: 2rem; border-radius: 999rem;"/>
+        <a href="./cart">
+          <img src="./images/cart.svg" style="width: 1.5rem; height: 1.5rem;"/>
+        </a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h2>Contact us for more information</h2>
+      <p>
+        Try pulling on your vocal cords and send some noise signal to the other smartphone
+        or any input devices — or just reach us the usual way below.
+      </p>
+    </section>
+
+    <div class="cards">
+      <div class="cards-inner">
+        <div class="card-cta">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.5 5.75c0-1.1.9-2 2-2h1.6c.9 0 1.7.62 1.93 1.48l.48 1.82c.2.74-.07 1.53-.67 2.02l-1.02.82c.94 1.87 2.45 3.38 4.32 4.32l.82-1.02c.49-.6 1.28-.86 2.02-.67l1.82.48c.86.23 1.48 1.03 1.48 1.93v1.6c0 1.1-.9 2-2 2H16c-7.18 0-11.5-4.32-11.5-11.5v-1.6z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Call Us</h3>
+          <p>Just call us so we send labubus to your doorstep</p>
+          <a class="btn cta-white" style="font-weight: bold;" href="tel:+66964206969">Call 069-420-6969</a>
+        </div>
+
+        <div class="card-cta">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5v7A2.5 2.5 0 0117.5 16H11l-4.5 4v-4H6.5A2.5 2.5 0 014 13.5v-7z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Message Us</h3>
+          <p>Just send us a message so we give you lapoopoo</p>
+          <a class="btn cta-white" style="font-weight: bold;" href="mailto:support@clickpick.example">Send message to us</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
