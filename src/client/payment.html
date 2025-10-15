@@ -8,9 +8,9 @@
   </head>
   <body>
     <header>
-      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <div><a href="./"><strong>ClickPick</strong></a></div>
       <nav>
-        <a href="./orders.html">Orders</a>
+        <a href="./orders">Orders</a>
       </nav>
     </header>
     <div class="container">
@@ -33,7 +33,7 @@
           document.getElementById('order_id').value = currentOrderId;
         } else {
           alert('No pending order. Please checkout first.');
-          location.href = './checkout.html';
+          location.href = './checkout';
         }
       }
       document.getElementById('pay').addEventListener('click', async () => {
@@ -46,7 +46,7 @@
           };
           await orders.pay(currentOrderId, payload);
           alert('Payment successful');
-          location.href = './orders.html';
+          location.href = './orders';
         } catch(e) { alert(e.message); }
       });
       init();

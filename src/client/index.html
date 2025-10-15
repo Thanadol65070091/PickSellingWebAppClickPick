@@ -8,11 +8,16 @@
   </head>
   <body>
     <header>
-      <div><a href="./index.html"><strong>ClickPick</strong></a></div>
+      <div>
+        <a href="./">
+          <img src="./images/logo.svg"/>
+          <strong>ClickPick</strong>
+        </a>
+      </div>
       <nav>
-        <a href="./cart.html">Cart</a>
-        <a href="./orders.html">Orders</a>
-        <a href="./checkout.html">Checkout</a>
+        <a href="./cart">Cart</a>
+        <a href="./orders">Orders</a>
+        <a href="./checkout">Checkout</a>
         <a href="/docs" target="_blank">API Docs</a>
       </nav>
     </header>
@@ -43,7 +48,7 @@
             <h3>${p.name}</h3>
             <p>${p.description}</p>
             <p><strong>${p.price} THB</strong></p>
-            <a class="btn" href="./product.html?id=${p.id}">View</a>
+            <a class="btn" href="./product?id=${p.id}">View</a>
           </div>
         `).join('');
       }
